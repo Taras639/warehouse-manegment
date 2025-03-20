@@ -1,53 +1,54 @@
 from tabulate import tabulate
+import logging
 
-
+# Налаштування логування
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class Product:
-   """Клас, що представляє продукт з основними атрибутами."""
+    """Клас, що представляє продукт з основними атрибутами."""
 
-   def __init__(self, name, cost, quantity, producer):
-       self.name = name
-       self.cost = cost
-       self.quantity = quantity
-       self.producer = producer
-
-
+    def __init__(self, name, cost, quantity, producer):
+        self.name = name
+        self.cost = cost
+        self.quantity = quantity
+        self.producer = producer
 
 
 class FoodProduct(Product):
-   """Клас, що представляє харчовий продукт, з додатковим атрибутом для дати терміну придатності."""
+    """Клас, що представляє харчовий продукт, з додатковим атрибутом для дати терміну придатності."""
 
-   def __init__(self, name, cost, quantity, producer, expiry_date):
-       super().__init__(name, cost, quantity, producer)
-       self.expiry_date = expiry_date
+    def __init__(self, name, cost, quantity, producer, expiry_date):
+        super().__init__(name, cost, quantity, producer)
+        self.expiry_date = expiry_date
 
-
-   def decrease_cost(self):
-       """Метод для зменшення вартості продукту, якщо термін придатності майже закінчився."""
-       # Перевіряємо, чи термін придатності майже закінчився (менше ніж 20% залишилося)
-       if self.expiry_date <= 0.2:
-           self.cost *= 0.9  # Зменшуємо вартість на 10%
-
-
+    def decrease_cost(self):
+        """Метод для зменшення вартості продукту, якщо термін придатності майже закінчився."""
+        try:
+            if self.expiry_date is not None and self.expiry_date <= 0.2:
+                self.cost *= 0.9  # Зменшуємо вартість на 10%
+                logging.info(f"Ціна на {self.name} зменшена через малий термін придатності.")
+        except Exception as e:
+            logging.error(f"Помилка при зменшенні ціни: {e}")
 
 
 class NonFoodProduct(Product):
-   """Клас, що представляє непродовольчий продукт, з додатковими атрибутами для розмірів і призначення."""
+    """Клас, що представляє непродовольчий продукт, з додатковими атрибутами для розмірів і призначення."""
 
+    def __init__(self, name, cost, quantity, producer, dimensions, purpose):
+        super().__init__(name, cost, quantity, producer)
+        self.dimensions = dimensions
+        self.purpose = purpose
 
-   def __init__(self, name, cost, quantity, producer, dimensions, purpose):
-       super().__init__(name, cost, quantity, producer)
-       self.dimensions = dimensions
-       self.purpose = purpose
-
-
-   def decrease_cost(self):
-       """Метод для збільшення вартості продукту, якщо його розміри перевищують 100 см."""
-       # Перевірка перевищення розмірів
-       if self.dimensions > 100:
-           self.cost *= 1.1  # Додаємо 10% надбавки
-
+    def decrease_cost(self):
+        """Метод для збільшення вартості продукту, якщо загальна сума розмірів перевищує 100 см."""
+        try:
+            total_size = sum(map(float, str(self.dimensions).split('x')))
+            if total_size > 100:
+                self.cost *= 1.1  # Додаємо 10% надбавки
+                logging.info(f"Ціна на {self.name} збільшена через великі розміри.")
+        except Exception as e:
+            logging.error(f"Помилка при зміні ціни товару {self.name}: {e}")
 
 
 
