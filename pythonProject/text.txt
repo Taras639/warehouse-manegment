@@ -1,0 +1,23 @@
+# Продовольчі товари:
+Apple,2.5,100,Farm Fresh,10
+Banana,1.5,150,Organic Farm,7
+Bread,3,50,Local Bakery,5
+Milk,2,80,Farmers Coop,3
+Eggs,1.5,120,Farm Fresh,5
+Cheese,4,40,Dairy Delight,10
+Yogurt,2,70,Dairy Delight,7
+Chicken,5,30,Farmers Coop,2
+Rice,1,200,Local Market,12
+Pasta,1.5,100,Italian Imports,8
+
+# Непродовольчі товари:
+Chair,50,10,Furniture Co.,90,Home
+Table,100,5,Furniture Co.,120,Home
+Desk,80,8,Furniture Co.,100,Office
+Laptop,1000,3,Electronics Inc.,15,Personal
+TV,500,2,Electronics Inc.,30,Entertainment
+Phone,600,5,Electronics Inc.,10,Communication
+Shoes,80,15,Fashion House,40,Footwear
+Shirt,30,25,Fashion House,20,Clothing
+Backpack,40,20,Outdoor Gear,50,Travel
+Glasses,50,10,Eyewear Co.,15,Accessories
